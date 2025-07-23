@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GwenOS v2.5 - Birthday Protocol Activated</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Comic+Neue:wght@700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            overflow-x: hidden;
+            font-family: 'Press Start 2P', cursive;
+            color: #0f0;
+            text-align: center;
+            perspective: 1000px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 0 0 10px #0f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            animation: glow 1s infinite alternate;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin: 20px 0;
+            font-family: 'Comic Neue', cursive;
+        }
+        
+        .system-message {
+            color: #ff0;
+            border-left: 3px solid #ff0;
+            padding-left: 10px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            color: #f00;
+            animation: blink 0.5s infinite;
+        }
+        
+        .success {
+            color: #0f0;
+        }
+        
+        .highlight {
+            color: #f0f;
+            font-weight: bold;
+        }
+        
+        #cake {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 100px;
+            z-index: 5;
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #0f0; }
+            to { text-shadow: 0 0 20px #0f0, 0 0 30px #0f0; }
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+            100% { transform: translateX(-50%) translateY(0px); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        .party-popper {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0;
+            z-index: 20;
+        }
+        
+        #terminal {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 30px 0;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        #terminal div {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        .cursor {
+            animation: blink 1s infinite;
+        }
+        
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            margin: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #f0f;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix" class="matrix-rain"></canvas>
+    <div id="confetti-container"></div>
+    
+    <div class="container">
+        <div class="content-wrapper">
+            <h1>🎂 GwenOS v2.5 🎂</h1>
+            
+            <div id="terminal">
+                <div>> Initializing Birthday Protocol...</div>
+                <div>> Scanning for party hats...</div>
+                <div class="warning">> WARNING: Excessive fabulousness detected!</div>
+                <div>> CONFETTI CANNON ARMED <span class="success">[OK]</span></div>
+                <div>> Sarcasm Module: Updated to match Gwendolyne's level <span class="success">[OK]</span></div>
+                <div>> Downloading cake... 404 calories not found</div>
+                <div>> Installing dad jokes... 100% complete</div>
+                <div class="warning">> ALERT: Too much awesomeness in one person!</div>
+                <div>> SPARKLE MODE ACTIVATED! ✨</div>
+                <div>> Birthday.exe launched successfully!</div>
+                <div class="cursor">_</div>
+            </div>
+            
+            <div class="system-message">
+                BOOM! 💥 ZAP! ⚡ Systems nominal. All party systems go!
+            </div>
+            
+            <p>
+                <span class="highlight">Gwendolyne</span>, you magnificent chaos gremlin, the universe just got 1.21 gigawatts more fabulous because you exist!
+            </p>
+            
+            <p>
+                Warning: This birthday contains:<br>
+                • 100% unfiltered joy<br>
+                • 200% ridiculousness<br>
+                • ∞% YOU being awesome
+            </p>
+            
+            <div class="system-message">
+                SPARKLE MODE: ENGAGED! ✨🎊✨
+            </div>
+            
+            <p>
+                May your day be filled with:<br>
+                • Laughter that snorts out your nose<br>
+                • Cake that defies the laws of physics<br>
+                • Zero annoying people (404 Not Found)<br>
+                • And memories that crash the server!
+            </p>
+            
+            <button id="party-btn">PRESS FOR EMERGENCY PARTY MODE</button>
+            <button id="unicorn-btn">SUMMON UNICORN (NOT A DRILL)</button>
+            
+            <div id="cake">🎂</div>
+        </div>
+    </div>
+    
+    <script>
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const symbols = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+        
+        const alphabet = katakana + latin + nums + symbols;
+        
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        
+        const rainDrops = [];
+        
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+        
+        const draw = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+                
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        };
+        
+        setInterval(draw, 30);
+        
+        // Terminal animation
+        const terminal = document.getElementById('terminal');
+        const messages = [
+            "> Running diagnostics...",
+            "> Party hat calibration complete!",
+            "> Loading dad jokes... 42% complete",
+            "> Searching for perfect GIF...",
+            "> Found 69420 matching memes",
+            "> Unicorn compatibility check... PASSED",
+            "> Dance floor: PREPARED",
+            "> Birthday magic: MAXIMUM OVERDRIVE",
+            "> System status: IT'S PARTY TIME! 🎉"
+        ];
+        
+        let messageIndex = 0;
+        const cursor = terminal.querySelector('.cursor');
+        
+        const addTerminalMessage = () => {
+            if (messageIndex < messages.length) {
+                setTimeout(() => {
+                    const newMessage = document.createElement('div');
+                    newMessage.textContent = messages[messageIndex];
+                    terminal.insertBefore(newMessage, cursor);
+                    terminal.scrollTop = terminal.scrollHeight;
+                    messageIndex++;
+                    addTerminalMessage();
+                }, Math.random() * 1000 + 500);
+            } else {
+                cursor.style.display = 'none';
+            }
+        };
+        
+        setTimeout(addTerminalMessage, 2000);
+        
+        // Confetti explosion
+        const createConfetti = () => {
+            const confettiContainer = document.getElementById('confetti-container');
+            confettiContainer.innerHTML = '';
+            
+            for (let i = 0; i < 200; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confettiContainer.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    delay: Math.random() * 1000
+                });
+            }
+        };
+        
+        // Party poppers
+        const createPartyPopper = () => {
+            const popper = document.createElement('div');
+            popper.className = 'party-popper';
+            popper.textContent = ['🎉', '🎊', '✨', '🎈', '🥳'][Math.floor(Math.random() * 5)];
+            popper.style.left = Math.random() * 100 + 'vw';
+            popper.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(popper);
+            
+            popper.animate([
+                { transform: 'scale(0.5)', opacity: 0 },
+                { transform: 'scale(1.2)', opacity: 1 },
+                { transform: 'scale(1)', opacity: 0 }
+            ], {
+                duration: 1000,
+                easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+            });
+            
+            setTimeout(() => popper.remove(), 1000);
+        };
+        
+        // Button effects
+        document.getElementById('party-btn').addEventListener('click', () => {
+            createConfetti();
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createPartyPopper, i * 100);
+            }
+            
+            // Flash background
+            document.body.style.backgroundColor = '#f0f';
+            setTimeout(() => {
+                document.body.style.backgroundColor = '#000';
+            }, 300);
+            
+            // Add terminal message
+            const emergencyMessage = document.createElement('div');
+            emergencyMessage.className = 'warning';
+            emergencyMessage.textContent = "> EMERGENCY PARTY MODE ACTIVATED! WOOO! 🎊";
+            terminal.insertBefore(emergencyMessage, cursor);
+            terminal.scrollTop = terminal.scrollHeight;
+        });
+        
+        document.getElementById('unicorn-btn').addEventListener('click', () => {
+            const unicorn = document.createElement('div');
+            unicorn.textContent = '🦄';
+            unicorn.style.position = 'fixed';
+            unicorn.style.fontSize = '100px';
+            unicorn.style.left = '-150px';
+            unicorn.style.top = Math.random() * window.innerHeight + 'px';
+            unicorn.style.zIndex = '100';
+            document.body.appendChild(unicorn);
+            
+            unicorn.animate([
+                { left: '-150px' },
+                { left: window.innerWidth + 150 + 'px' }
+            ], {
+                duration: 3000,
+                iterations: 1
+            });
+            
+            setTimeout(() => unicorn.remove(), 3000);
+            
+            // Rainbow trail
+            const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.textContent = '✨';
+                    sparkle.style.position = 'fixed';
+                    sparkle.style.fontSize = '20px';
+                    sparkle.style.left = (Math.random() * 300 - 150 + parseInt(unicorn.style.left)) + 'px';
+                    sparkle.style.top = (Math.random() * 100 - 50 + parseInt(unicorn.style.top)) + 'px';
+                    sparkle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    document.body.appendChild(sparkle);
+                    
+                    sparkle.animate([
+                        { opacity: 1, transform: 'scale(1)' },
+                        { opacity: 0, transform: 'scale(2)' }
+                    ], {
+                        duration: 1000
+                    });
+                    
+                    setTimeout(() => sparkle.remove(), 1000);
+                }, i * 50);
+            }
+            
+            // Add terminal message
+            const unicornMessage = document.createElement('div');
+            unicornMessage.className = 'highlight';
+            unicornMessage.textContent = "> UNICORN DEPLOYED! MAGIC LEVELS CRITICAL! 🌈";
+            terminal.insertBefore(unicornMessage, cursor);
+            terminal.scrollTop = terminal.scrollHeight;
+        });
+        
+        // Random effects
+        setInterval(() => {
+            if (Math.random() > 0.9) {
+                createPartyPopper();
+            }
+        }, 3000);
+        
+        // Cake animation
+        const cake = document.getElementById('cake');
+        setInterval(() => {
+            cake.animate([
+                { transform: 'translateX(-50%) rotate(0deg)' },
+                { transform: 'translateX(-50%) rotate(5deg)' },
+                { transform: 'translateX(-50%) rotate(-5deg)' },
+                { transform: 'translateX(-50%) rotate(0deg)' }
+            ], {
+                duration: 1000,
+                iterations: 1
+            });
+        }, 5000);
+        
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

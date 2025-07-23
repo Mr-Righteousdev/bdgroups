@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GwenOS v2.5 Birthday Protocol</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+            color: #00ff88;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #00ff88;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: bootFade 8s ease-in-out forwards;
+        }
+
+        @keyframes bootFade {
+            0%, 70% { opacity: 1; }
+            100% { opacity: 0; pointer-events: none; }
+        }
+
+        .boot-text {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            opacity: 0;
+            animation: typeIn 0.5s ease forwards;
+        }
+
+        .boot-text:nth-child(1) { animation-delay: 0.5s; }
+        .boot-text:nth-child(2) { animation-delay: 1.5s; }
+        .boot-text:nth-child(3) { animation-delay: 2.5s; }
+        .boot-text:nth-child(4) { animation-delay: 3.5s; }
+        .boot-text:nth-child(5) { animation-delay: 4.5s; }
+
+        @keyframes typeIn {
+            to { opacity: 1; }
+        }
+
+        .header {
+            text-align: center;
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowShift 2s ease-in-out infinite, glow 2s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+        }
+
+        @keyframes rainbowShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 20px #ff6b6b); }
+            50% { filter: brightness(1.2) drop-shadow(0 0 40px #4ecdc4); }
+        }
+
+        .system-status {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .system-status::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .status-line {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .status-line:nth-child(1) { animation-delay: 1s; }
+        .status-line:nth-child(2) { animation-delay: 1.5s; }
+        .status-line:nth-child(3) { animation-delay: 2s; }
+        .status-line:nth-child(4) { animation-delay: 2.5s; }
+        .status-line:nth-child(5) { animation-delay: 3s; }
+
+        @keyframes slideIn {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .birthday-message {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .birthday-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"><animate attributeName="opacity" values="0.1;0.8;0.1" dur="2s" repeatCount="indefinite"/></circle><circle cx="80" cy="30" r="1.5" fill="white" opacity="0.1"><animate attributeName="opacity" values="0.1;0.6;0.1" dur="3s" repeatCount="indefinite"/></circle><circle cx="40" cy="70" r="1" fill="white" opacity="0.1"><animate attributeName="opacity" values="0.1;0.9;0.1" dur="1.5s" repeatCount="indefinite"/></circle></svg>');
+        }
+
+        .birthday-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .birthday-text {
+            font-size: 1.3rem;
+            color: #f0f0f0;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            animation: confettiFall 3s linear infinite;
+            z-index: 999;
+        }
+
+        .confetti:nth-child(2n) { background: #4ecdc4; }
+        .confetti:nth-child(3n) { background: #45b7d1; }
+        .confetti:nth-child(4n) { background: #96ceb4; }
+        .confetti:nth-child(5n) { background: #ffeaa7; }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .sound-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ff6b6b;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2000;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.8);
+        }
+
+        .sound-effect.show {
+            animation: soundPop 1s ease-out;
+        }
+
+        @keyframes soundPop {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+        }
+
+        .party-button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            margin: 20px 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            font-family: 'Orbitron', monospace;
+        }
+
+        .party-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.5);
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.1;
+        }
+
+        .achievement {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            animation: achievementPop 0.5s ease-out;
+        }
+
+        @keyframes achievementPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .floating-emoji {
+            position: fixed;
+            font-size: 2rem;
+            animation: float 4s ease-in-out infinite;
+            z-index: 500;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 2.5rem; }
+            .birthday-title { font-size: 2rem; }
+            .status-line { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <div class="boot-screen" id="bootScreen">
+        <div class="boot-text">🎂💻 GWENOS v2.5 BIRTHDAY PROTOCOL INITIATED 💻🎂</div>
+        <div class="boot-text">Initializing Birthday Protocol... ✓</div>
+        <div class="boot-text">Scanning for party hats... ✓</div>
+        <div class="boot-text">Loading excessive enthusiasm subroutines... ✓</div>
+        <div class="boot-text">CONFETTI CANNON ARMED AND READY... 💥</div>
+    </div>
+
+    <div class="sound-effect" id="soundEffect"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">GWENOS v2.5</h1>
+            <p style="font-size: 1.2rem; color: #4ecdc4;">Birthday Protocol: ACTIVE</p>
+        </header>
+
+        <div class="system-status">
+            <div class="status-line">⚡ Sarcasm Module: Updated to match Gwendolyne's legendary level</div>
+            <div class="status-line">⚡ Downloading cake... 404 calories not found (convenient!)</div>
+            <div class="status-line">⚡ Installing birthday wisdom... "Age is just a number in a database"</div>
+            <div class="status-line">⚡ Activating wit amplifier to maximum capacity</div>
+            <div class="status-line">⚠️ Warning: CRITICAL LEVELS OF AWESOMENESS DETECTED</div>
+        </div>
+
+        <div class="achievement">
+            <h3 style="color: #ffd700; margin-bottom: 10px;">🏆 BIRTHDAY ACHIEVEMENT UNLOCKED! 🏆</h3>
+            <p>Another year of being absolutely fabulous!</p>
+        </div>
+
+        <div class="birthday-message">
+            <h2 class="birthday-title">HAPPY BIRTHDAY GWENDOLYNE!</h2>
+            <div class="birthday-text">
+                <p><strong>System Analysis Complete:</strong></p>
+                <p>• CPU: Pure brilliance ✨</p>
+                <p>• RAM: Unlimited sass storage 💾</p>
+                <p>• Graphics card: Makes everything look better just by existing 🎨</p>
+                <p>• Operating system: Unstoppable Force v∞ 🚀</p>
+                <br>
+                <p><strong>May your day be filled with:</strong></p>
+                <p>Cake that appears magically, laughter that crashes boring conversations, zero annoying people in your vicinity, WiFi that never buffers during cat videos, and birthday wishes that actually come true!</p>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="party-button" onclick="launchConfetti()">🎊 CONFETTI BLAST</button>
+            <button class="party-button" onclick="playSound('BOOM!')">💥 BOOM</button>
+            <button class="party-button" onclick="playSound('ZAP!')">⚡ ZAP</button>
+            <button class="party-button" onclick="activateSparkles()">✨ SPARKLE MODE</button>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; font-size: 1.5rem; color: #ffd700;">
+            <p>🎉 NOW GO FORTH AND BE RIDICULOUSLY AWESOME! 🎉</p>
+            <p style="font-size: 1rem; color: #4ecdc4; margin-top: 10px;">*GwenOS Birthday Protocol complete*</p>
+        </div>
+    </div>
+
+    <script>
+        // Matrix rain effect
+        function createMatrixRain() {
+            const canvas = document.createElement('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            document.getElementById('matrixBg').appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            const matrix = "GWENDOLYNE01🎂🎉✨💻";
+            const drops = [];
+            
+            for (let x = 0; x < canvas.width / 20; x++) {
+                drops[x] = 1;
+            }
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#00ff88';
+                ctx.font = '15px monospace';
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = matrix[Math.floor(Math.random() * matrix.length)];
+                    ctx.fillText(text, i * 20, drops[i] * 20);
+                    
+                    if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 35);
+        }
+
+        // Confetti system
+        function launchConfetti() {
+            playSound('🎊 PARTY TIME!');
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createConfetti(), i * 50);
+            }
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 5000);
+        }
+
+        // Sound effects
+        function playSound(text) {
+            const soundEffect = document.getElementById('soundEffect');
+            soundEffect.textContent = text;
+            soundEffect.classList.add('show');
+            
+            setTimeout(() => {
+                soundEffect.classList.remove('show');
+            }, 1000);
+        }
+
+        // Sparkle mode
+        function activateSparkles() {
+            playSound('✨ SPARKLE MODE ACTIVATED!');
+            document.body.style.filter = 'brightness(1.2) saturate(1.5)';
+            
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.innerHTML = '✨';
+                    sparkle.className = 'floating-emoji';
+                    sparkle.style.left = Math.random() * 100 + 'vw';
+                    sparkle.style.top = Math.random() * 100 + 'vh';
+                    sparkle.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 4000);
+                }, i * 100);
+            }
+            
+            setTimeout(() => {
+                document.body.style.filter = '';
+            }, 3000);
+        }
+
+        // Auto confetti on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                launchConfetti();
+                createMatrixRain();
+            }, 8500);
+            
+            // Random floating emojis
+            setInterval(() => {
+                const emojis = ['🎂', '🎉', '🎊', '✨', '💻', '🚀', '💫'];
+                const emoji = document.createElement('div');
+                emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.className = 'floating-emoji';
+                emoji.style.left = Math.random() * 100 + 'vw';
+                emoji.style.top = '100vh';
+                emoji.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(emoji);
+                
+                setTimeout(() => emoji.remove(), 5000);
+            }, 3000);
+        });
+
+        // Responsive canvas
+        window.addEventListener('resize', () => {
+            const canvas = document.querySelector('canvas');
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        });
+    </script>
+</body>
+</html>

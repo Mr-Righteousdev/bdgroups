@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GwenOS v2.5 - Birthday Boot-Up</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+body {
+background: linear-gradient(45deg, #0f172a, #1e293b, #334155, #0f172a);
+background-size: 400% 400%;
+animation: gradientShift 8s ease infinite;
+color: #38bdf8;
+font-family: 'Orbitron', 'Courier New', monospace;
+overflow-x: hidden;
+position: relative;
+min-height: 100vh;
+}
+
+@keyframes gradientShift {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
+
+/* Holographic grid overlay */
+body::before {
+content: '';
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: 
+  linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+background-size: 50px 50px;
+pointer-events: none;
+animation: gridPulse 4s ease-in-out infinite;
+z-index: -1;
+}
+
+@keyframes gridPulse {
+0%, 100% { opacity: 0.3; }
+50% { opacity: 0.1; }
+}
+
+/* Floating particles */
+.particle {
+position: fixed;
+background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5);
+border-radius: 50%;
+pointer-events: none;
+animation: float 6s infinite ease-in-out;
+z-index: -1;
+}
+
+@keyframes float {
+0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+}
+
+/* Enhanced terminal container */
+.terminal-container {
+background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
+border: 2px solid rgba(56, 189, 248, 0.3);
+border-radius: 15px;
+box-shadow: 
+  0 0 50px rgba(56, 189, 248, 0.2),
+  inset 0 0 20px rgba(56, 189, 248, 0.05);
+backdrop-filter: blur(10px);
+position: relative;
+overflow: hidden;
+}
+
+.terminal-container::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.1), transparent);
+animation: scanline 3s infinite;
+}
+
+@keyframes scanline {
+0% { left: -100%; }
+100% { left: 100%; }
+}
+
+/* Terminal header */
+.terminal-header {
+background: linear-gradient(90deg, #1e293b, #334155);
+padding: 10px 20px;
+border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.terminal-dot {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+animation: pulse 2s infinite;
+}
+
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #eab308; }
+.dot-green { background: #22c55e; }
+
+@keyframes pulse {
+0%, 100% { transform: scale(1); opacity: 1; }
+50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+/* Enhanced text effects */
+#typed {
+white-space: pre-line;
+text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+line-height: 1.6;
+}
+
+/* Glowing cursor */
+.typed-cursor {
+color: #ff006e !important;
+font-weight: bold;
+animation: cursorGlow 1s infinite;
+}
+
+@keyframes cursorGlow {
+0%, 100% { text-shadow: 0 0 5px #ff006e; }
+50% { text-shadow: 0 0 20px #ff006e, 0 0 30px #ff006e; }
+}
+
+/* Rainbow text for special words */
+.rainbow-text {
+background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b);
+background-size: 400%;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: rainbow 3s ease infinite;
+}
+
+@keyframes rainbow {
+0%, 100% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+}
+
+/* Holographic effects */
+.holo-text {
+color: transparent;
+background: linear-gradient(45deg, #38bdf8, #a855f7, #ec4899, #38bdf8);
+background-clip: text;
+-webkit-background-clip: text;
+background-size: 200%;
+animation: holo 2s linear infinite;
+text-shadow: none;
+}
+
+@keyframes holo {
+0% { background-position: 0% 50%; }
+100% { background-position: 200% 50%; }
+}
+
+/* Neon glow effects */
+.neon-glow {
+text-shadow: 
+  0 0 5px currentColor,
+  0 0 10px currentColor,
+  0 0 15px currentColor,
+  0 0 20px #ff006e,
+  0 0 35px #ff006e,
+  0 0 40px #ff006e;
+animation: neonFlicker 2s infinite alternate;
+}
+
+@keyframes neonFlicker {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.8; }
+}
+
+/* Matrix rain effect */
+.matrix-rain {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+z-index: -2;
+opacity: 0.1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+.terminal-container {
+  margin: 10px;
+  border-radius: 10px;
+}
+#typed {
+  font-size: 14px;
+}
+
+}
+</style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 py-8">
+<div class="matrix-rain" id="matrix"></div>
+<div class="terminal-container max-w-4xl w-full">
+<div class="terminal-header">
+<div class="terminal-dot dot-red"></div>
+<div class="terminal-dot dot-yellow"></div>
+<div class="terminal-dot dot-green"></div>
+<span class="text-sm font-bold ml-2">GwenOS v2.5 - Birthday Protocol Active</span>
+</div>
+<div class="p-8">
+<h1 id="typed" class="text-lg leading-relaxed"></h1>
+</div>
+</div>
+
+<audio id="bg-audio" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Create floating particles
+function createParticles() {
+for (let i = 0; i < 20; i++) {
+  const particle = document.createElement('div');
+  particle.className = 'particle';
+  particle.style.width = Math.random() * 6 + 2 + 'px';
+  particle.style.height = particle.style.width;
+  particle.style.left = Math.random() * 100 + '%';
+  particle.style.top = Math.random() * 100 + '%';
+  particle.style.animationDelay = Math.random() * 6 + 's';
+  particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+  document.body.appendChild(particle);
+}
+}
+
+// Create matrix rain effect
+function createMatrixRain() {
+const matrix = document.getElementById('matrix');
+const characters = '01';
+const columns = Math.floor(window.innerWidth / 20);
+
+for (let i = 0; i < columns; i++) {
+  const column = document.createElement('div');
+  column.style.position = 'absolute';
+  column.style.left = i * 20 + 'px';
+  column.style.top = '0';
+  column.style.color = '#38bdf8';
+  column.style.fontSize = '14px';
+  column.style.fontFamily = 'monospace';
+  column.style.animation = `matrixFall ${Math.random() * 3 + 2}s linear infinite`;
+  column.style.animationDelay = Math.random() * 2 + 's';
+  
+  let text = '';
+  for (let j = 0; j < 50; j++) {
+    text += characters[Math.floor(Math.random() * characters.length)] + '\n';
+  }
+  column.textContent = text;
+  matrix.appendChild(column);
+}
+}
+
+// Add matrix fall animation
+const style = document.createElement('style');
+style.textContent = `
+@keyframes matrixFall {
+  0% { transform: translateY(-100vh); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+`;
+document.head.appendChild(style);
+
+// Enhanced confetti function
+function launchSuperConfetti() {
+const colors = ['#ff006e', '#8338ec', '#3a86ff', '#06ffa5', '#ffbe0b', '#38bdf8'];
+
+// Multiple confetti bursts
+for (let i = 0; i < 5; i++) {
+  setTimeout(() => {
+    confetti({
+      particleCount: 100,
+      spread: 120,
+      origin: { y: Math.random() * 0.6, x: Math.random() },
+      colors: colors,
+      shapes: ['star', 'circle'],
+      scalar: 1.2,
+      gravity: 0.5,
+      drift: Math.random() * 2 - 1
+    });
+  }, i * 200);
+}
+}
+
+// Initialize everything
+createParticles();
+createMatrixRain();
+
+const typed = new Typed("#typed", {
+strings: [
+`> <span class="holo-text">Booting GwenOS v2.5...</span>
+> <span class="rainbow-text">Initializing Birthday Protocol...</span>
+> Scanning for good vibes <span class="neon-glow">✅</span>
+> Deploying Confetti Cannon... <span class="neon-glow">💥</span>
+> <span class="rainbow-text">Warning: Cake Overload Detected</span> 🎂🎂🎂
+> Syncing Sass Levels with Gwendolyne... <span class="neon-glow">☑️ MAXIMUM</span>
+> <span class="holo-text">Engaging Party Mode in 3... 2... 1...</span>
+
+<span class="neon-glow">HELLO GWENDOLYNE.</span>
+Welcome back to your annually scheduled <span class="rainbow-text">GLORIOUS UPGRADE</span>. 🪩✨
+
+You are now running <span class="holo-text">GwenOS v2.5</span> — featuring enhanced sass, unstoppable charm, and experimental cupcake teleportation abilities. 😌🔬🧁
+
+I, your underpaid digital assistant, have been summoned to deliver this very important birthday briefing:
+
+🛑 <span class="neon-glow">WARNING:</span>
+Too much awesomeness detected in one human.
+Please tone it down... or don't.
+We love the chaos. 🔥💅
+
+<span class="rainbow-text">System Update Highlights:</span>
+- Sarcasm Module? <span class="neon-glow">✅ Updated.</span>
+- Mood Boosters? <span class="neon-glow">✅ Fully loaded.</span>
+- Calories? <span class="holo-text">❌ 404 Not Found.</span>
+- Friends who adore you? <span class="neon-glow">✅ Unlimited.</span>
+
+Okay real talk, Gwen...
+
+From all of us — and especially from a certain someone 👀 who stayed up building you this virtual shrine of ridiculousness —
+<span class="rainbow-text neon-glow">HAPPY BIRTHDAY, LEGEND.</span>
+
+May your cake be moist, your memes be spicy, and your haters forever lag in low resolution.
+
+💖 Stay radiant, stay hilarious, and don't forget:
+This world is better, weirder, and 10x cooler with <span class="holo-text">YOU</span> in it.
+
+🎉 <span class="rainbow-text">GwenOS shutting down...</span>
+...just kidding.
+<span class="neon-glow">We party all night baby!</span> 💃💥`
+],
+typeSpeed: 35,
+showCursor: true,
+onBegin: () => {
+  document.getElementById("bg-audio").play().catch(e => console.log('Audio autoplay blocked'));
+},
+onStringTyped: () => {
+  launchSuperConfetti();
+  
+  // Continuous celebration effects
+  setInterval(() => {
+    if (Math.random() > 0.7) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.8, x: Math.random() },
+        colors: ['#ff006e', '#8338ec', '#3a86ff', '#06ffa5']
+      });
+    }
+  }, 3000);
+}
+});
+
+// Add some interactive elements
+document.addEventListener('click', () => {
+confetti({
+  particleCount: 30,
+  spread: 50,
+  origin: { y: 0.7, x: Math.random() },
+  colors: ['#38bdf8', '#a855f7', '#ec4899']
+});
+});
+
+// Keyboard easter egg
+document.addEventListener('keydown', (e) => {
+if (e.key === ' ') {
+  launchSuperConfetti();
+}
+});
+</script>
+</body>
+</html>
